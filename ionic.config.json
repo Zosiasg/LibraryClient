@@ -1,0 +1,7 @@
+{
+  "name": "LibraryClient",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
