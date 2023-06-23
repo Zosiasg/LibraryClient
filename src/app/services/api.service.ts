@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Book } from '../models/book';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class ApiService {
 
   // API path
-  base_path = 'https://localhost:44329/api/books/';
+  base_path = 'https://localhost:44329/api/books';
 
   constructor(private http: HttpClient) { }
 
@@ -21,27 +21,28 @@ export class ApiService {
     })
   }
 
-  // Handle API errors
-  handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      // console.error(
-      //   `Backend returned code ${error.status}, ` +
-      //   `body was: ${error.error}`);
-      console.error(
-  `Backend returned code ${error.status}, ` +
-  `body was: ${error.statusText}`);
-
-    }
-    // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
-  };
-
+ // Error handling
+ handleError(error: any) {
+  let errorMessage = '';
+  if (error.error instanceof ErrorEvent) {
+    // Get client-side error
+    //     console.error('An error occurred:', error.error.message);
+    errorMessage = error.error.message;
+  } else {
+  // Get server-side error
+  //     console.error(
+  // `Backend returned code ${error.status}, ` +
+  // `body was: ${error.statusText}`);
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  
+  //return an observable with a user-facing error message
+  return throwError('Something bad happened; please try again later.');
+  }
+  window.alert(errorMessage);
+  return throwError(() => {
+    return errorMessage;
+  });
+}
 
   // Create a new item
   createItem(item: Book): Observable<Book> {
@@ -54,9 +55,9 @@ export class ApiService {
   }
 
   // Get single Book data by ID
-  getItem(id:BigInteger): Observable<Book> {
+  getItem(idBook:number): Observable<Book> {
     return this.http
-      .get<Book>(this.base_path + '/' + id)
+      .get<Book>(this.base_path + '/' + idBook)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -65,32 +66,40 @@ export class ApiService {
 
   // Get Books data
   getList(): Observable<Book> {
-    return this.http
-      .get<Book>(this.base_path)
-      .pipe(
+    return this.http.get<Book>(this.base_path).pipe(
+        tap((Book) => console.log('Book fetched!')),
         retry(2),
         catchError(this.handleError)
       )
   }
 
   // Update item by id
-  updateItem(id:BigInteger, item:Book): Observable<Book> {
+  updateItem(idBook:number, item:Book): Observable<Book> {
     return this.http
-      .put<Book>(this.base_path + '/' + id, JSON.stringify(item), this.httpOptions)
+      .put<Book>(this.base_path + '/' + idBook, JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
+
+  // // Delete item by id
+  // deleteItem(id: BigInteger) {
+  //   return this.http
+  //     .delete<Book>(this.base_path + '/' + id, this.httpOptions)
+  //     .pipe(
+  //       retry(2),
+  //       catchError(this.handleError)
+  //     )
+  // }
 
   // Delete item by id
-  deleteItem(id: BigInteger) {
-    return this.http
-      .delete<Book>(this.base_path + '/' + id, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
+deleteItem(idBook: number): Observable<any> {
+  return this.http
+    .delete(this.base_path + '/' + idBook, this.httpOptions)
+    .pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+}
 }

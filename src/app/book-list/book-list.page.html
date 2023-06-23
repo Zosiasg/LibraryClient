@@ -17,13 +17,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of booksData">
-        <td>{{ item.id }}</td>
+        <td>{{ item.idBook }}</td>
         <td>{{ item.tittle }}</td>
         <td>{{ item.author }}</td>
         <td>{{ item.section }}</td>
         <td>{{ item.status }}</td>
         <td style="display: flex">
-          <ion-button color="warning" size="small" routerLink='/book-edit/{{item.id}}'>
+          <ion-button color="warning" size="small" routerLink='/book-edit/{{item.idBook}}'>
             <ion-icon name="create"></ion-icon>
           </ion-button>
           <ion-button color="danger" size="small" (click)="delete(item)">

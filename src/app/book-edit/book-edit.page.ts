@@ -12,7 +12,7 @@ import { ApiService } from '../services/api.service';
 export class BookEditPage implements OnInit {
 
 
-  id!: BigInteger;
+  idBook: number;
   data: Book;
 
   constructor(
@@ -24,9 +24,9 @@ export class BookEditPage implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot.params["id"];
+    this.idBook = this.activatedRoute.snapshot.params["idBook"];
     //get item details using id
-    this.apiService.getItem(this.id).subscribe(response => {
+    this.apiService.getItem(this.idBook).subscribe(response => {
       console.log(response);
       this.data = response;
     })
@@ -34,7 +34,7 @@ export class BookEditPage implements OnInit {
 
   update() {
     //Update item by taking id and updated data object
-    this.apiService.updateItem(this.id, this.data).subscribe(response => {
+    this.apiService.updateItem(this.idBook, this.data).subscribe(response => {
       this.router.navigate(['book-list']);
     })
   }

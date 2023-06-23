@@ -32,9 +32,16 @@ export class BookListPage  implements OnInit {
     })
   }
 
+  // delete(item: any) {
+  //   this.apiService.deleteItem(item.id).subscribe((response) => {
+  //     this.getAllBooks();
+  //   });
+  // }
 
   delete(item:Book) {
-    this.apiService.deleteItem(item.id).subscribe(Response => {
+    //Delete item in Books data
+    this.apiService.deleteItem(item.idBook).subscribe(response => {
+      //Update list after delete is successful
       this.getAllBooks();
     });
   }
