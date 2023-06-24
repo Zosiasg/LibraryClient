@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Book } from '../models/book';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,8 @@ export class BookListPage  implements OnInit {
 
   constructor(
     private router: Router,
-    public apiService: ApiService
+    public apiService: ApiService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.booksData = [];
     
@@ -41,13 +42,23 @@ export class BookListPage  implements OnInit {
   //   });
   // }
 
-  delete(item:Book) {
-    //Delete item in Books data
-    this.apiService.deleteItem(item.idBook).subscribe(response => {
-      //Update list after delete is successful
-      this.getAllBooks();
-      // this.router.navigate(['book-list']);
-     });
-  }
+  // delete(item:Book) {
+  //   //Delete item in Books data
+  //   this.apiService.deleteItem(item.idBook).subscribe(response => {
+  //     //Update list after delete is successful
+  //     this.getAllBooks();
+  //     // this.router.navigate(['book-list']);
+  //    });
+  // }
 
+  delete(item: Book) {
+    // Usunięcie książki z danych
+    this.apiService.deleteItem(item.idBook).subscribe(response => {
+      // Zaktualizowanie listy po pomyślnym usunięciu
+      this.getAllBooks();
+      // Ręczne odświeżenie widoku
+      this.changeDetectorRef.detectChanges();
+    });
+  }
+  
 }

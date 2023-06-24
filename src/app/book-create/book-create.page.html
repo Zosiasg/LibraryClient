@@ -7,23 +7,19 @@
 <ion-content class="ion-padding">
 
   <ion-item>
-    <ion-label>Title</ion-label>
-    <ion-input [(ngModel)]="data.tittle" placeholder="Enter Title"></ion-input>
+    <ion-input label="Title" [(ngModel)]="data.tittle" placeholder="Enter Title"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Author</ion-label>
-    <ion-input [(ngModel)]="data.author" placeholder="Enter Author"></ion-input>
+    <ion-input label="Author" [(ngModel)]="data.author" placeholder="Enter Author"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Section</ion-label>
-    <ion-input [(ngModel)]="data.section" placeholder="Enter Section"></ion-input>
+    <ion-input label="Section" [(ngModel)]="data.section" placeholder="Enter Section"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Status</ion-label>
-    <ion-input type=number [(ngModel)]="data.status" placeholder="Enter Status"></ion-input>
+    <ion-input label="Status" type=number [(ngModel)]="data.status" placeholder="Enter Status"></ion-input>
   </ion-item>
   <!-- <ion-item>
     <ion-label>Status</ion-label>
@@ -33,9 +29,17 @@
     </ion-input>
   </ion-item> -->
   
-  <ion-item>
+  <!-- <ion-item>
     <ion-button (click)="submitForm()">Add
     </ion-button>
   </ion-item>
-
+  <ion-button [routerLink]="['/book-list']" color="danger" size="small">
+    Cancel
+  </ion-button> -->
+  <ion-button [routerLink]="['/book-list']" (click)="submitForm()" color="success" size="small">
+    Add
+  </ion-button>
+  <ion-button [routerLink]="['/book-list']" color="danger" size="small">
+    Cancel
+  </ion-button>
 </ion-content> 
