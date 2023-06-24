@@ -7,8 +7,8 @@
 <ion-content class="ion-padding">
 
   <ion-item>
-    <ion-label>Tittle</ion-label>
-    <ion-input [(ngModel)]="data.tittle" placeholder="Enter Tittle"></ion-input>
+    <ion-label>Title</ion-label>
+    <ion-input [(ngModel)]="data.tittle" placeholder="Enter Title"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -23,9 +23,16 @@
 
   <ion-item>
     <ion-label>Status</ion-label>
-    <ion-input [(ngModel)]="data.status" placeholder="Enter Status"></ion-input>
+    <ion-input type=number [(ngModel)]="data.status" placeholder="Enter Status"></ion-input>
   </ion-item>
-
+  <!-- <ion-item>
+    <ion-label>Status</ion-label>
+    <ion-input type=number [(ngModel)]="data.status">
+      <ion-select-option value=0>Available</ion-select-option>
+      <ion-select-option value=1>Unavailable</ion-select-option>
+    </ion-input>
+  </ion-item> -->
+  
   <ion-item>
     <ion-button (click)="submitForm()">Add
     </ion-button>

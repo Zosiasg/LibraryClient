@@ -7,8 +7,8 @@
 <ion-content class="ion-padding">
 
   <ion-item>
-    <ion-label>Tittle</ion-label>
-    <ion-input [(ngModel)]="data.tittle" placeholder="Enter Tittle"></ion-input>
+    <ion-label>Title</ion-label>
+    <ion-input [(ngModel)]="data.tittle" placeholder="Enter Title"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -23,13 +23,13 @@
 
   <ion-item>
     <ion-label>Status</ion-label>
-    <ion-input [(ngModel)]="data.status" placeholder="Enter Status"></ion-input>
+    <ion-input type=number [(ngModel)]="data.status" placeholder="Enter Status"></ion-input>
   </ion-item>
 
-  <ion-button (click)="update()" color="success" size="small">
+  <ion-button [routerLink]="['/book-list']" (click)="update()" color="success" size="small">
     Update
   </ion-button>
-  <ion-button [routerLink]="[ '/book-list']" color="danger" size="small">
+  <ion-button [routerLink]="['/book-list']" color="danger" size="small">
     Cancel
   </ion-button>
 </ion-content>

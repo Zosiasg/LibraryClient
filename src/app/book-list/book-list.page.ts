@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Book } from '../models/book';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
@@ -12,9 +13,11 @@ export class BookListPage  implements OnInit {
   booksData: any;
 
   constructor(
+    private router: Router,
     public apiService: ApiService
   ) {
     this.booksData = [];
+    
   }
 
   ngOnInit() {
@@ -43,7 +46,8 @@ export class BookListPage  implements OnInit {
     this.apiService.deleteItem(item.idBook).subscribe(response => {
       //Update list after delete is successful
       this.getAllBooks();
-    });
+      // this.router.navigate(['book-list']);
+     });
   }
 
 }

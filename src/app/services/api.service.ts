@@ -21,27 +21,58 @@ export class ApiService {
     })
   }
 
- // Error handling
- handleError(error: any) {
+//  // Error handling
+//  handleError(error: any) {
+//   let errorMessage = '';
+//   if (error.error instanceof ErrorEvent) {
+//     // Get client-side error
+//     //     console.error('An error occurred:', error.error.message);
+//     errorMessage = error.error.message;
+//   } else {
+//   // Get server-side error
+//   //     console.error(
+//   // `Backend returned code ${error.status}, ` +
+//   // `body was: ${error.statusText}`);
+//     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  
+//   //return an observable with a user-facing error message
+//   return throwError('Something bad happened; please try again later.');
+//   }
+//   window.alert(errorMessage);
+//   return throwError(() => {
+//     return errorMessage;
+//   });
+// }
+
+// Error handling
+handleError(error: HttpErrorResponse) {
+  
+  if (error.status === 200 || error.status === 201) {
+    // Brak błędu dla kodów odpowiedzi 200 i 201
+    return throwError('');
+  }
+
   let errorMessage = '';
+
   if (error.error instanceof ErrorEvent) {
-    // Get client-side error
-    //     console.error('An error occurred:', error.error.message);
+    // Błąd po stronie klienta
     errorMessage = error.error.message;
   } else {
-  // Get server-side error
-  //     console.error(
-  // `Backend returned code ${error.status}, ` +
-  // `body was: ${error.statusText}`);
-    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-  
-  //return an observable with a user-facing error message
-  return throwError('Something bad happened; please try again later.');
+    // Błąd po stronie serwera
+    if (error.error.errors) {
+      // Błąd walidacji zwrócony przez API
+      const validationErrors = error.error.errors;
+      Object.keys(validationErrors).forEach((key) => {
+        errorMessage += `${key}: ${validationErrors[key][0]}\n`;
+      });
+    } else {
+      // Inne błędy serwera
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
   }
+
   window.alert(errorMessage);
-  return throwError(() => {
-    return errorMessage;
-  });
+  return throwError(errorMessage);
 }
 
   // Create a new item

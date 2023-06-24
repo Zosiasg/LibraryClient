@@ -11,7 +11,6 @@ import { ApiService } from '../services/api.service';
 })
 export class BookEditPage implements OnInit {
 
-
   idBook: number;
   data: Book;
 
@@ -34,9 +33,12 @@ export class BookEditPage implements OnInit {
 
   update() {
     //Update item by taking id and updated data object
-    this.apiService.updateItem(this.idBook, this.data).subscribe(response => {
-      this.router.navigate(['book-list']);
+    this.apiService.updateItem(this.idBook, this.data).subscribe(() => {
+      this.router.navigate(['/book-list']);
+    },
+    error => {
+      // Obsługa błędów
+      console.error(error);
     })
   }
-
 }
