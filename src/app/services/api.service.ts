@@ -10,7 +10,7 @@ import { retry, catchError, tap } from 'rxjs/operators';
 export class ApiService {
 
   // API path
-  base_path = 'https://localhost:44329/api/books';
+  base_path = 'http://192.168.0.20:5000/api/books';
 
   constructor(private http: HttpClient) { }
 
