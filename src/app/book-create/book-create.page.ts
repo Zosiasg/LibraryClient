@@ -25,9 +25,12 @@ export class BookCreatePage implements OnInit {
 
   submitForm() {
     this.apiService.createItem(this.data).subscribe((response) => {
-      this.router.navigate(['book-list']);
+      this.router.navigate(['book-list']);   
+    },
+    error => {
+      // Obsługa błędów
+      console.error(error);
     });
-
   }
 
 }

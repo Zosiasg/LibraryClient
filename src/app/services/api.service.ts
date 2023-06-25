@@ -21,29 +21,6 @@ export class ApiService {
     })
   }
 
-//  // Error handling
-//  handleError(error: any) {
-//   let errorMessage = '';
-//   if (error.error instanceof ErrorEvent) {
-//     // Get client-side error
-//     //     console.error('An error occurred:', error.error.message);
-//     errorMessage = error.error.message;
-//   } else {
-//   // Get server-side error
-//   //     console.error(
-//   // `Backend returned code ${error.status}, ` +
-//   // `body was: ${error.statusText}`);
-//     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-  
-//   //return an observable with a user-facing error message
-//   return throwError('Something bad happened; please try again later.');
-//   }
-//   window.alert(errorMessage);
-//   return throwError(() => {
-//     return errorMessage;
-//   });
-// }
-
 // Error handling
 handleError(error: HttpErrorResponse) {
   
@@ -113,16 +90,6 @@ handleError(error: HttpErrorResponse) {
         catchError(this.handleError)
       )
   }
-
-  // // Delete item by id
-  // deleteItem(id: BigInteger) {
-  //   return this.http
-  //     .delete<Book>(this.base_path + '/' + id, this.httpOptions)
-  //     .pipe(
-  //       retry(2),
-  //       catchError(this.handleError)
-  //     )
-  // }
 
   // Delete item by id
 deleteItem(idBook: number): Observable<any> {
