@@ -22,7 +22,7 @@
     <ion-input label="Status" type=number [(ngModel)]="data.status" placeholder="Enter Status"></ion-input>
   </ion-item>
 
-  <ion-button [routerLink]="['/book-list']" (click)="update()" color="success" size="small">
+  <ion-button (click)="update()" color="success" size="small">
     Update
   </ion-button>
   <ion-button [routerLink]="['/book-list']" color="danger" size="small">

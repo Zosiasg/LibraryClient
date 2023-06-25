@@ -21,9 +21,7 @@ export class BookListPage  implements OnInit {
     
   }
 
-  ngOnInit() {
-   
-  }
+  ngOnInit() {  }
 
   ionViewWillEnter() {
     this.getAllBooks();
@@ -61,4 +59,8 @@ export class BookListPage  implements OnInit {
     });
   }
   
+  refresh() {
+    console.log("Odświeżam stronę");
+    this.getAllBooks();
+  }
 }
