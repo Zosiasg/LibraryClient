@@ -21,7 +21,8 @@
         <td>{{ item.tittle }}</td>
         <td>{{ item.author }}</td>
         <td>{{ item.section }}</td>
-        <td>{{ item.status }}</td>
+        <!-- <td>{{ item.status }}</td> -->
+        <td>{{ item.status === 0 ? 'Available' : 'Unavailable' }}</td>
         <td style="display: flex">
           <ion-button color="warning" size="small" routerLink='/book-edit/{{item.idBook}}'>
             <ion-icon name="create"></ion-icon>
