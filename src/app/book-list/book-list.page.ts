@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Book } from '../models/book';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from "../../shared/authentication-service";
 
 @Component({
@@ -9,7 +9,8 @@ import { AuthenticationService } from "../../shared/authentication-service";
   templateUrl: './book-list.page.html',
   styleUrls: ['./book-list.page.scss'],
 })
-export class BookListPage  implements OnInit {
+
+  export class BookListPage  implements OnInit {
 
   booksData: any;
   
@@ -18,12 +19,17 @@ export class BookListPage  implements OnInit {
     private router: Router,
     public apiService: ApiService,
     public authService: AuthenticationService,
-  ) {
+  ) 
+  
+  {
     this.booksData = [];
-    
   }
 
-  ngOnInit() {  }
+  ngOnInit() {
+    if(!this.authService.isLoggedIn) {
+      this.router.navigate(['login']);
+    };
+  }
 
   ionViewWillEnter() {
     this.getAllBooks();
