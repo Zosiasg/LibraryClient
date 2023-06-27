@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Book } from '../models/book';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from "../../shared/authentication-service";
 
 @Component({
   selector: 'app-book-list',
@@ -11,10 +12,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class BookListPage  implements OnInit {
 
   booksData: any;
-
+  
+    
   constructor(
     private router: Router,
     public apiService: ApiService,
+    public authService: AuthenticationService,
   ) {
     this.booksData = [];
     
@@ -42,3 +45,4 @@ export class BookListPage  implements OnInit {
   }
   
 }
+
